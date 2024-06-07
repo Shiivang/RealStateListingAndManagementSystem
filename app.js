@@ -13,6 +13,8 @@ const session = require("express-session");
 
 var userRouter = require('./routes/user');
 var propartyRouter = require('./routes/proparty');
+var appoinmentRouter = require('./routes/appoinment');
+
 
 var app = express();
 
@@ -39,6 +41,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/user', userRouter);
 app.use('/proparty', propartyRouter);
+app.use('/appoinment', appoinmentRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

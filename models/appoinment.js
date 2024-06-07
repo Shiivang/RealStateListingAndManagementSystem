@@ -7,6 +7,7 @@ const appoinmentSchema = new mongoose.Schema({
     status : {type : String ,
         enum : ["scheduled", "completed", "canceled"] 
     },
+    date : Date ,
 })
 
 
