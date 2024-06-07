@@ -7,7 +7,12 @@ var logger = require('morgan');
 
 const db = require("./models/dbconnect");
 
-var indexRouter = require('./routes/index');
+const userSchema = require("./models/userDataSchema");
+const passport = require("passport");
+const session = require("express-session");
+
+var userRouter = require('./routes/user');
+var propartyRouter = require('./routes/proparty');
 
 var app = express();
 
@@ -15,13 +20,25 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
+app.use(session({
+  resave : false ,
+  saveUninitialized : false ,
+  secret : "asdfg"
+}))
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.serializeUser(userSchema.serializeUser());
+passport.deserializeUser(userSchema.deserializeUser());
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
+app.use('/user', userRouter);
+app.use('/proparty', propartyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
