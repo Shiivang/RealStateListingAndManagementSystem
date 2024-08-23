@@ -10,7 +10,7 @@ passport.use(User.createStrategy());
 const {isLoggedIn} = require("../utility/auth");
 
 /* GET home page. */
-router.get('/', isLoggedIn, function(req, res, next) {
+router.get('/', function(req, res, next) {
   res.send("homepage");
 });
 
